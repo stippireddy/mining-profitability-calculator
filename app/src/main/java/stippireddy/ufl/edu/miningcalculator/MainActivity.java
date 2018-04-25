@@ -42,7 +42,9 @@ public class MainActivity extends AppCompatActivity {
         btn2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-
+                Intent findCoin = new Intent(MainActivity.this, FindCoinActivity.class);
+                findCoin.putExtra("map",serverData);
+                startActivity(findCoin);
             }
         });
 
@@ -88,36 +90,5 @@ public class MainActivity extends AppCompatActivity {
             return map;
         }
 
-//        private void calculate(double[] userInput, double[] serviceInput){
-//            long[] HashRateSteps =
-//                    new long[] {1, 1000, 1_000_000, 1_000_000_000, 1_000_000_000_000l, 1_000_000_000_000_000l};
-//            parsedData[0] = Double.valueOf((String)forecastJson.get("block_time"));
-//            parsedData[1] = (double) forecastJson.get("block_reward");
-//            parsedData[2] = (double) forecastJson.get("difficulty");
-//            parsedData[3] = (double) forecastJson.get("exchange_rate");
-//            double difficultyFactor = serviceInput[2];
-//            double hashRate = 111d;
-//            double hashRateStep = 1_000_000;
-//            double exchangeRate = serviceInput[3];
-//            double blockReward = serviceInput[1];
-//            double poolFee = 0;
-//            double hardwareCost = 1000;
-//            double hardwarePowerInWatts = 200;
-//            double powerCostInKWH = 1;
-//            double calcHashRate = hashRate * hashRateStep;
-//            int numberOfDays = 1;
-//            double coin = calcHashRate / difficultyFactor * blockReward * 3600 * 24;
-//            double fee = coin / 100 * poolFee;
-//            double profitCoin = coin - fee;
-//            double profitUsd = profitCoin * exchangeRate;
-//            double powerCost = (hardwarePowerInWatts * 24 * numberOfDays * powerCostInKWH) / 1000;
-//            double profitPerDay = profitUsd - powerCost;
-//            if (profitPerDay < 0) {
-//                System.out.println("You will never break-even");
-//            } else {
-//                System.out.println("You will break even in " + hardwareCost / profitPerDay + " days");
-//            }
-//            System.out.println(profitUsd - powerCost);
-//        }
     }
 }

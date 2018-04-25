@@ -18,6 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".KnowCoinActivity"></activity>
+        <activity android:name=".FindCoinActivity"></activity>
     </application>
 
 </manifest>

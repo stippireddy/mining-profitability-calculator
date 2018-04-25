@@ -1,13 +1,11 @@
 
 package stippireddy.ufl.edu.miningcalculator;
 
-import android.app.PendingIntent;
 import android.content.Intent;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.text.Editable;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
@@ -20,35 +18,18 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
-public class KnowCoinActivity extends AppCompatActivity {
+public class FindCoinActivity extends AppCompatActivity {
 
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_know_coin);
+        setContentView(R.layout.find_coin);
 
         Intent i = getIntent();
         HashMap<String, CurrencyData> hashMap = (HashMap<String, CurrencyData>) i.getSerializableExtra("map");
-
-        List<String> coinNames = new ArrayList<>();
-        coinNames.add("Select a coin you want to mine.");
-        for(String s: hashMap.keySet()){
-            coinNames.add(hashMap.get(s).tag + "");
-        }
-        String[] hashRate = new String[] {
-                "H/s", "KH/s", "MH/s", "GH/s", "TH/s", "PH/s"
-        };
-
-        Spinner coinSpinner = (Spinner) findViewById(R.id.coinSpinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, coinNames);
-        adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-        coinSpinner.setAdapter(adapter);
-
 
         EditText et_HashRate = (EditText) findViewById(R.id.et_hashRate);
         EditText et_HardWareCost = (EditText) findViewById(R.id.et_hardWareCost);
@@ -69,16 +50,26 @@ public class KnowCoinActivity extends AppCompatActivity {
                 }else if(TextUtils.isEmpty(et_PowerCost.getText())){
                     et_PowerCost.setError( "Power cost is required!" );
                 }else{
-                    int selectedItemOfMySpinner = coinSpinner.getSelectedItemPosition();
-                   String actualPositionOfMySpinner = (String) coinSpinner.getItemAtPosition(selectedItemOfMySpinner);
-                    CurrencyData currencyData = hashMap.get(actualPositionOfMySpinner);
-                    calculate(currencyData, Double.parseDouble(et_HashRate.getText().toString()), Double.parseDouble(et_HardWareCost.getText().toString()),Double.parseDouble(et_Power.getText().toString()), Double.parseDouble(et_PowerCost.getText().toString())) ;
+                    calculate(hashMap, Double.parseDouble(et_HashRate.getText().toString()), Double.parseDouble(et_HardWareCost.getText().toString()),Double.parseDouble(et_Power.getText().toString()), Double.parseDouble(et_PowerCost.getText().toString())) ;
                 }
             }
         });
     }
 
-    private void calculate(CurrencyData currencyData, double hashRate, double hardwareCost, double hardwarePowerInWatts, double powerCostInKWH){
+    private void calculate(HashMap<String, CurrencyData> hashMap, double hashRate, double hardwareCost, double hardwarePowerInWatts, double powerCostInKWH){
+        double profitDays = Double.MAX_VALUE;
+        String mostProfitableCurrency = "";
+        for(CurrencyData currencyData : hashMap.values()){
+            double currentCurrencyBreakEvenDays = calculate(currencyData, hashRate, hardwareCost, hardwarePowerInWatts, powerCostInKWH);
+            if(profitDays>currentCurrencyBreakEvenDays){
+                profitDays = currentCurrencyBreakEvenDays;
+                mostProfitableCurrency = currencyData.getCurrencyName();
+            }
+        }
+        Log.d("Inside FindActivity", mostProfitableCurrency);
+        Toast.makeText(getApplicationContext(),mostProfitableCurrency + " is the most profitable currency to mine currently!", Toast.LENGTH_LONG);
+    }
+    private double calculate(CurrencyData currencyData, double hashRate, double hardwareCost, double hardwarePowerInWatts, double powerCostInKWH){
         double difficultyFactor = currencyData.getDifficulty();
         double hashRateStep = 1_000_000;
         double exchangeRate = currencyData.getExchangeRate();
@@ -90,9 +81,9 @@ public class KnowCoinActivity extends AppCompatActivity {
         double powerCost = (hardwarePowerInWatts * 24 * numberOfDays * powerCostInKWH) / 1000;
         double profitPerDay = profitUsd - powerCost;
         if (profitPerDay < 0) {
-            Toast.makeText(getApplicationContext(),"You will never break-even", Toast.LENGTH_LONG);
+            return -1;
         } else {
-            Toast.makeText(getApplicationContext(),"You will break even in " + hardwareCost / profitPerDay + " days", Toast.LENGTH_LONG);
+            return hardwareCost / profitPerDay;
         }
     }
 }
