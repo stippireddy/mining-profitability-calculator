@@ -34,14 +34,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent knowCoin = new Intent(MainActivity.this, KnowCoinActivity.class);
-                try {
-                    serverData = new FetchWeatherTask().execute().get();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                } catch (ExecutionException e) {
-                    e.printStackTrace();
-                }
-
                 knowCoin.putExtra("map",serverData);
                 startActivity(knowCoin);
             }

@@ -2,6 +2,8 @@
 package stippireddy.ufl.edu.miningcalculator;
 
 import android.content.Intent;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,11 +13,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.stream.Collectors;
 
 public class KnowCoinActivity extends AppCompatActivity {
 
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,20 +30,18 @@ public class KnowCoinActivity extends AppCompatActivity {
         Intent i = getIntent();
         HashMap<String, CurrencyData> hashMap = (HashMap<String, CurrencyData>) i.getSerializableExtra("map");
 
-        Log.d("Test",""+hashMap.get("BTC").getExchangeRate());
-
-
-        String[] coins = new String[] {
-                "BITCOIN", "2", "3", "4", "5"
-        };
-
+        Log.d("Test","" + hashMap.get("BTC").getExchangeRate());
+        List<String> coinNames = new ArrayList<>();
+        for(String s: hashMap.keySet()){
+            coinNames.add(hashMap.get(s).tag);
+        }
         String[] hashRate = new String[] {
-                "1", "2", "3", "4", "5"
+                "H/s", "KH/s", "MH/s", "GH/s", "TH/s", "PH/s"
         };
 
         Spinner coinSpinner = (Spinner) findViewById(R.id.coinSpinner);
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, coins);
+                android.R.layout.simple_spinner_item, coinNames);
         adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
         coinSpinner.setAdapter(adapter);
 
