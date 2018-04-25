@@ -34,11 +34,6 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent knowCoin = new Intent(MainActivity.this, KnowCoinActivity.class);
-//                try {
-//                    Thread.sleep(1000);
-//                } catch (InterruptedException e) {
-//                    e.printStackTrace();
-//                }
                 try {
                     serverData = new FetchWeatherTask().execute().get();
                 } catch (InterruptedException e) {
@@ -47,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
 
-                serverData = new HashMap<>();
-                serverData.put("BTC", new CurrencyData());
                 knowCoin.putExtra("map",serverData);
                 startActivity(knowCoin);
             }
@@ -77,11 +70,10 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         protected HashMap<String, CurrencyData> doInBackground(String... params) {
-            String location = "101";
             HashMap<String, CurrencyData> map = new HashMap<>();
             String[] inputs = new String[]{"162", "151", "178", "101","15", "147", "4", "1", "193"};
             for(String input: inputs){
-                URL weatherRequestUrl = NetworkUtils.buildUrl(location);
+                URL weatherRequestUrl = NetworkUtils.buildUrl(input);
                 try {
                     String jsonWeatherResponse = NetworkUtils
                             .getResponseFromHttpUrl(weatherRequestUrl);
@@ -92,7 +84,7 @@ public class MainActivity extends AppCompatActivity {
                     data.setCurrencyName((String)forecastJson.get("name"));
                     data.setDifficulty((double)forecastJson.get("difficulty"));
                     data.setExchangeRate((double) forecastJson.get("exchange_rate"));
-                    data.setBlockReward((double) forecastJson.get("block_reward"));
+                    data.setBlockReward(Double.valueOf(""+forecastJson.get("block_reward")));
                     data.setTag((String)forecastJson.get("tag"));
                     map.put(data.getTag(),data);
                     Log.d("In Fetch Weather Tsk", data.toString());

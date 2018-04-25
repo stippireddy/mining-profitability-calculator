@@ -4,132 +4,148 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".KnowCoinActivity"
-    android:background="#FF34">
+    tools:context=".KnowCoinActivity">
 
 
-    <LinearLayout
-        android:id="@+id/chooseCoin"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:padding="25dp">
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
-        <Spinner
-            android:id="@+id/coinSpinner"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1" />
+            android:orientation="vertical" >
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/chooseCoin"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp">
 
-    <LinearLayout
-        android:id="@+id/hashRate"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:layout_below="@+id/chooseCoin"
-        android:padding="25dp">
+                <Spinner
+                    android:id="@+id/coinSpinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-        <EditText
-            android:id="@+id/et_hashRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="Enter Hash Rate" />
+            </LinearLayout>
 
+            <LinearLayout
+                android:id="@+id/hardwareCost"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/hashRate"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp">
 
-        <Spinner
-            android:id="@+id/hashspinner"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1" />
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/hardwareCost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:padding="25dp"
-        android:layout_below="@+id/hashRate">
-
-        <EditText
-            android:id="@+id/et_hardWareCost"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="numberDecimal"
-            android:hint="Enter Hardware Cost" />
+                <EditText
+                    android:id="@+id/et_hardWareCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Enter Hardware Cost"
+                    android:inputType="numberDecimal" />
 
 
+            </LinearLayout>
 
-    </LinearLayout>
+            <LinearLayout
+                android:id="@+id/hashRate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/chooseCoin"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp">
 
-    <LinearLayout
-        android:id="@+id/power"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:padding="25dp"
-        android:layout_below="@+id/hardwareCost">
-
-        <EditText
-            android:id="@+id/et_power"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="Enter Power" />
-
-
-
-    </LinearLayout>
-    <LinearLayout
-        android:id="@+id/powerCost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_margin="10dp"
-        android:padding="25dp"
-        android:layout_below="@+id/power">
-
-        <EditText
-            android:id="@+id/et_powerRate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:ems="10"
-            android:inputType="number"
-            android:hint="Enter Power Rate" />
+                <EditText
+                    android:id="@+id/et_hashRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Enter Hash Rate"
+                    android:inputType="number" />
 
 
+                <Spinner
+                    android:id="@+id/hashspinner"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
-    </LinearLayout>
+            </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/buttonLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/powerCost"
-        android:layout_margin="10dp"
-        android:orientation="horizontal"
-        >
+            <LinearLayout
+                android:id="@+id/power"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/hardwareCost"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp">
 
-        <Button
-            android:id="@+id/calculate"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Calculate Button" />
-    </LinearLayout>
+                <EditText
+                    android:id="@+id/et_power"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Enter Power"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/powerCost"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/power"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <EditText
+                    android:id="@+id/et_powerRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Enter Power Rate"
+                    android:inputType="number" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/powerCost"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/calculate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Calculate Button" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>

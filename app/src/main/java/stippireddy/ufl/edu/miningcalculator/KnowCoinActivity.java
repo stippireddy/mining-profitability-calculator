@@ -24,14 +24,11 @@ public class KnowCoinActivity extends AppCompatActivity {
         Intent i = getIntent();
         HashMap<String, CurrencyData> hashMap = (HashMap<String, CurrencyData>) i.getSerializableExtra("map");
 
-        for(String s:hashMap.keySet()){
-            System.out.println(s);
-        }
         Log.d("Test",""+hashMap.get("BTC").getExchangeRate());
 
 
         String[] coins = new String[] {
-                "1", "2", "3", "4", "5"
+                "BITCOIN", "2", "3", "4", "5"
         };
 
         String[] hashRate = new String[] {
