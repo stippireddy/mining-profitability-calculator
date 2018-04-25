@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.HashMap;
+
 public class KnowCoinActivity extends AppCompatActivity {
 
 
@@ -20,8 +22,12 @@ public class KnowCoinActivity extends AppCompatActivity {
         setContentView(R.layout.activity_know_coin);
 
         Intent i = getIntent();
-        String receivedName = i.getStringExtra("data");
-        Log.d("Test",receivedName);
+        HashMap<String, CurrencyData> hashMap = (HashMap<String, CurrencyData>) i.getSerializableExtra("map");
+
+        for(String s:hashMap.keySet()){
+            System.out.println(s);
+        }
+        Log.d("Test",""+hashMap.get("BTC").getExchangeRate());
 
 
         String[] coins = new String[] {

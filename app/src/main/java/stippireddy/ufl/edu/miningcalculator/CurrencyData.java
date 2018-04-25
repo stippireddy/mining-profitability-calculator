@@ -58,4 +58,16 @@ public class CurrencyData implements Serializable{
     public void setExchangeRate(double exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
+
+    @Override
+    public String toString() {
+        return "CurrencyData{" +
+                "currencyID='" + currencyID + '\'' +
+                ", currencyName='" + currencyName + '\'' +
+                ", blockReward=" + blockReward +
+                ", difficulty=" + difficulty +
+                ", exchangeRate=" + exchangeRate +
+                ", tag='" + tag + '\'' +
+                '}';
+    }
 }
