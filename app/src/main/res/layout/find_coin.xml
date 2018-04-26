@@ -1,126 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".FindCoinActivity">
 
 
-<ScrollView
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_alignParentStart="true"
-    android:layout_alignParentTop="true">
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true">
 
         <LinearLayout
-            android:id="@+id/hashRate"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/chooseCoin"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
-            android:orientation="horizontal"
-            android:padding="25dp">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <EditText
-                android:id="@+id/et_hashRate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <LinearLayout
+                android:id="@+id/hashRate"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/chooseCoin"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <EditText
+                    android:id="@+id/et_hashRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Hash Rate (MH/s)"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/hardwareCost"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/hashRate"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <EditText
+                    android:id="@+id/et_hardWareCost"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Hardware Cost (USD)"
+                    android:inputType="numberDecimal" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/power"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/hardwareCost"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal"
+                android:padding="25dp">
+
+                <EditText
+                    android:id="@+id/et_power"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Power (Watts)"
+                    android:inputType="number" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/powerCost"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/power"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
                 android:layout_weight="1"
-                android:ems="10"
-                android:hint="Hash Rate (MH/s)"
-                android:inputType="number" />
+                android:orientation="horizontal"
+                android:padding="25dp">
 
+                <EditText
+                    android:id="@+id/et_powerRate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:hint="Power Cost (USD/kWh)"
+                    android:inputType="number" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/buttonLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/powerCost"
+                android:layout_margin="10dp"
+                android:layout_marginBottom="0dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/calculate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Get my break-even time" />
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/hardwareCost"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/hashRate"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
-            android:orientation="horizontal"
-            android:padding="25dp">
-
-            <EditText
-                android:id="@+id/et_hardWareCost"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Hardware Cost (USD)"
-                android:inputType="numberDecimal" />
-
-
-        </LinearLayout>
-        <LinearLayout
-            android:id="@+id/power"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/hardwareCost"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
-            android:orientation="horizontal"
-            android:padding="25dp">
-
-            <EditText
-                android:id="@+id/et_power"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Power (Watts)"
-                android:inputType="number" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/powerCost"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/power"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
-            android:layout_weight="1"
-            android:orientation="horizontal"
-            android:padding="25dp">
-
-            <EditText
-                android:id="@+id/et_powerRate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ems="10"
-                android:hint="Power Cost (USD/kWh)"
-                android:inputType="number" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/buttonLayout"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/powerCost"
-            android:layout_margin="10dp"
-            android:layout_marginBottom="0dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/calculate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Get my break-even time" />
-        </LinearLayout>
-    </LinearLayout>
-</ScrollView>
+    </ScrollView>
 
 </RelativeLayout>

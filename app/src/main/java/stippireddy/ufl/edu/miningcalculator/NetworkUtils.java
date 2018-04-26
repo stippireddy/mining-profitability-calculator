@@ -1,5 +1,5 @@
 /*
- * Copyright (C) 2016 The Android Open Source Project
+ * Copyright (C) 2018 The Android Open Source Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -26,33 +26,25 @@ import java.net.URL;
 import java.util.Scanner;
 
 /**
- * These utilities will be used to communicate with the weather servers.
+ * These utilities will be used to communicate with the whattomine.com servers.
  */
 public final class NetworkUtils {
 
     private static final String TAG = NetworkUtils.class.getSimpleName();
 
-    private static final String FORECAST_BASE_URL = "https://whattomine.com/coins/";
-
-    /*
-     * NOTE: These values only effect responses from OpenWeatherMap, NOT from the fake weather
-     * server. They are simply here to allow us to teach you how to build a URL if you were to use
-     * a real API.If you want to connect your app to OpenWeatherMap's API, feel free to! However,
-     * we are not going to show you how to do so in this course.
-     */
+    private static final String BASE_URL = "https://whattomine.com/coins/";
 
     /* The format we want our API to return */
     private static final String format = "json";
 
     /**
-     * Builds the URL used to talk to the weather server using a location. This location is based
-     * on the query capabilities of the weather provider that we are using.
+     * Builds the URL used to talk to whattomine.com using a coin code.
      *
-     * @param coinCode The location that will be queried for.
+     * @param coinCode The coin code for the coin that will be queried for.
      * @return The URL to use to query the weather server.
      */
     public static URL buildUrl(String coinCode) {
-        Uri builtUri = Uri.parse(FORECAST_BASE_URL+coinCode+".json").buildUpon().build();
+        Uri builtUri = Uri.parse(BASE_URL + coinCode + ".json").buildUpon().build();
         URL url = null;
         try {
             url = new URL(builtUri.toString());
