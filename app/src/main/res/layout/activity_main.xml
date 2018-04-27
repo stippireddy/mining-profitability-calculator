@@ -5,21 +5,41 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/knowCoin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="178dp"
-        android:text="I know my coin" />
+        android:orientation="vertical">
 
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="164dp"
-        android:text="Suggest Coin" />
+        <Button
+            android:id="@+id/findCoin"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+
+            android:layout_marginBottom="20dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="140dp"
+            android:layout_weight="1"
+            android:text="Suggest a coin to mine" />
+
+        <Button
+            android:id="@+id/knowCoin"
+            style="@android:style/Widget.Button"
+            android:layout_width="match_parent"
+            android:layout_height="7dp"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="140dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="40dp"
+            android:layout_weight="1"
+            android:text="I know the coin to mine" />
+    </LinearLayout>
+
 </RelativeLayout>

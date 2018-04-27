@@ -40,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         b_Know_Coin = (Button) findViewById(R.id.knowCoin);
-        b_Suggest_Coin = (Button) findViewById(R.id.button2);
+        b_Suggest_Coin = (Button) findViewById(R.id.findCoin);
 
         loadWeatherData();
         b_Know_Coin.setOnClickListener(new View.OnClickListener() {
