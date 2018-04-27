@@ -44,7 +44,7 @@ public final class NetworkUtils {
      * @return The URL to use to query the weather server.
      */
     public static URL buildUrl(String coinCode) {
-        Uri builtUri = Uri.parse(BASE_URL + coinCode + ".json").buildUpon().build();
+        Uri builtUri = Uri.parse(coinCode).buildUpon().build();
         URL url = null;
         try {
             url = new URL(builtUri.toString());

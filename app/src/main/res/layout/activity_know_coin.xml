@@ -101,7 +101,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Power (Watts)"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
 
             </LinearLayout>
 
@@ -123,7 +123,7 @@
                     android:layout_weight="1"
                     android:ems="10"
                     android:hint="Power Cost (USD/kWh)"
-                    android:inputType="number" />
+                    android:inputType="numberDecimal" />
 
 
             </LinearLayout>

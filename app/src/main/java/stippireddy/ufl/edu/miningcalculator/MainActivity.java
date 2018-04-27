@@ -79,12 +79,15 @@ public class MainActivity extends AppCompatActivity {
         protected HashMap<String, CurrencyData> doInBackground(String... params) {
             HashMap<String, CurrencyData> map = new HashMap<>();
             String[] inputs = new String[]{"162", "151", "178", "101", "15", "147", "4", "1", "193"};
-            for (String input : inputs) {
-                URL weatherRequestUrl = NetworkUtils.buildUrl(input);
+            String[] currencies = new String[]{"ETC", "ETH", "MUSIC", "XMR", "EMC2", "GAME", "LTC", "BTC", "BCH"};
+            for (int i=0; i<inputs.length; i++) {
+                String input = inputs[i];
+                URL whatToMineURL = NetworkUtils.buildUrl("https://whattomine.com/coins/"+input+".json");
+                URL cryptoCompareURL = NetworkUtils.buildUrl("https://min-api.cryptocompare.com/data/price?fsym="+currencies[i]+"&tsyms=USD");
+
                 try {
                     String jsonWeatherResponse = NetworkUtils
-                            .getResponseFromHttpUrl(weatherRequestUrl);
-
+                            .getResponseFromHttpUrl(whatToMineURL);
                     JSONObject forecastJson = new JSONObject(jsonWeatherResponse);
                     CurrencyData data = new CurrencyData();
                     data.setCurrencyID(input);
@@ -92,9 +95,19 @@ public class MainActivity extends AppCompatActivity {
                     data.setDifficulty((double) forecastJson.get("difficulty"));
                     data.setExchangeRate((double) forecastJson.get("exchange_rate"));
                     data.setBlockReward(Double.valueOf("" + forecastJson.get("block_reward")));
+                    data.setBlockTime(Double.valueOf("" + forecastJson.get("block_time")));
                     data.setTag((String) forecastJson.get("tag"));
                     map.put(data.getTag(), data);
                     Log.d("In Fetch Weather Tsk", data.toString());
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    return null;
+                }
+                try {
+                    String priceJSON = NetworkUtils
+                            .getResponseFromHttpUrl(cryptoCompareURL);
+                    JSONObject forecastJson = new JSONObject(priceJSON);
+                    map.get(currencies[i]).setExchangeRate((double) forecastJson.get("USD"));
                 } catch (Exception e) {
                     e.printStackTrace();
                     return null;

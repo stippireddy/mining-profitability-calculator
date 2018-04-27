@@ -90,16 +90,11 @@ public class KnowCoinActivity extends AppCompatActivity {
     }
 
     private void calculate(CurrencyData currencyData, double hashRate, double hardwareCost, double hardwarePowerInWatts, double powerCostInKWH) {
-        double difficultyFactor = currencyData.getDifficulty();
-        double hashRateStep = 1_000_000;
-        double exchangeRate = currencyData.getExchangeRate();
-        double blockReward = currencyData.getBlockReward();
-        double calcHashRate = hashRate * hashRateStep;
-        int numberOfDays = 1;
-        double profitCoin = calcHashRate / difficultyFactor * blockReward * 3600 * 24;
-        double profitUsd = profitCoin * exchangeRate;
-        double powerCost = (hardwarePowerInWatts * 24 * numberOfDays * powerCostInKWH) / 1000;
-        double profitPerDay = profitUsd - powerCost;
+        double hashesPerDay = hashRate * 1_000_000 * 86400;
+        double earningsPerDay = (hashesPerDay * (currencyData.getBlockReward() * currencyData.getExchangeRate())) / (Math.pow(2, 32) * currencyData.getDifficulty());
+        double costPerDay = (hardwarePowerInWatts * 24 * powerCostInKWH) / 1000;
+        double profitPerDay = earningsPerDay - costPerDay;
+        double timeToBreakEven = hardwareCost / profitPerDay;
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setCancelable(false)
                 .setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -109,8 +104,10 @@ public class KnowCoinActivity extends AppCompatActivity {
                 });
         if (profitPerDay < 0) {
             builder.setMessage("Oh oh! You will never break-even!");
+        } else if (profitPerDay > 0) {
+            builder.setMessage("You will break even in " + ((int) timeToBreakEven) + " days");
         } else {
-            builder.setMessage("You will break even in " + hardwareCost / profitPerDay + " days");
+            builder.setMessage("Wow, you will be in profit today!");
         }
         AlertDialog alert = builder.create();
         alert.show();

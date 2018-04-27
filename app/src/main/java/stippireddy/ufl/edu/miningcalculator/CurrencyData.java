@@ -25,6 +25,28 @@ public class CurrencyData implements Serializable {
     double difficulty;
     double exchangeRate;
     String tag;
+    double blockTime;
+
+    @Override
+    public String toString() {
+        return "CurrencyData{" +
+                "currencyID='" + currencyID + '\'' +
+                ", currencyName='" + currencyName + '\'' +
+                ", blockReward=" + blockReward +
+                ", difficulty=" + difficulty +
+                ", exchangeRate=" + exchangeRate +
+                ", tag='" + tag + '\'' +
+                ", blockTime=" + blockTime +
+                '}';
+    }
+
+    public double getBlockTime() {
+        return blockTime;
+    }
+
+    public void setBlockTime(double blockTime) {
+        this.blockTime = blockTime;
+    }
 
     public String getTag() {
         return tag;
@@ -74,15 +96,4 @@ public class CurrencyData implements Serializable {
         this.exchangeRate = exchangeRate;
     }
 
-    @Override
-    public String toString() {
-        return "CurrencyData{" +
-                "currencyID='" + currencyID + '\'' +
-                ", currencyName='" + currencyName + '\'' +
-                ", blockReward=" + blockReward +
-                ", difficulty=" + difficulty +
-                ", exchangeRate=" + exchangeRate +
-                ", tag='" + tag + '\'' +
-                '}';
-    }
 }
