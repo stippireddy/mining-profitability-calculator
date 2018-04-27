@@ -48,7 +48,7 @@ public class FindCoinActivity extends AppCompatActivity {
         EditText et_PowerCost = (EditText) findViewById(R.id.et_powerRate);
 
         Button calculate = (Button) findViewById(R.id.calculate);
-
+        // Creating an onclickListener to the button.
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -67,6 +67,15 @@ public class FindCoinActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This  iterates through all the coins supported by this system and alerts the user of the most profitable currency that can be mined.
+     *
+     * @param hashMap, this is the map that contains the coin data.
+     * @param hashRate, this is the hash rate in MH/s input by the user.
+     * @param hardwareCost, this is the hardware cost in USD input by the user.
+     * @param hardwarePowerInWatts, this is the power wattage input by the user.
+     * @param powerCostInKWH, this is the power cost in kilo watt hours input by the user.
+     */
     private void calculate(HashMap<String, CurrencyData> hashMap, double hashRate, double hardwareCost, double hardwarePowerInWatts, double powerCostInKWH) {
         double profitDays = Double.MAX_VALUE;
         String mostProfitableCurrency = "";
@@ -90,6 +99,18 @@ public class FindCoinActivity extends AppCompatActivity {
         alert.show();
     }
 
+    /**
+     * This  calculates the esimated break-even time with the current configuration.
+     *
+     * @return Integer.MAX_VALUE if the user never breaks-even
+     * @return a double giving the time in days that the user needs to wait before he breaks-even.
+     *
+     * @param currencyData, this is the object that contains the coin data of a single coin.
+     * @param hashRate, this is the hash rate in MH/s input by the user.
+     * @param hardwareCost, this is the hardware cost in USD input by the user.
+     * @param hardwarePowerInWatts, this is the power wattage input by the user.
+     * @param powerCostInKWH, this is the power cost in kilo watt hours input by the user.
+     */
     private double calculate(CurrencyData currencyData, double hashRate, double hardwareCost, double hardwarePowerInWatts, double powerCostInKWH) {
         double hashesPerDay = hashRate * 1_000_000 * 86400;
         double earningsPerDay = (hashesPerDay * (currencyData.getBlockReward() * currencyData.getExchangeRate())) / (Math.pow(2, 32) * currencyData.getDifficulty());

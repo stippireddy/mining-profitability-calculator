@@ -17,6 +17,13 @@ package stippireddy.ufl.edu.miningcalculator;
 
 import java.io.Serializable;
 
+/**
+ * Simple POJO class that contains the data about a specific coin.
+ * This implements the serializable interface.
+ * This allows this class objects to be serialized between components..
+ *
+ * All the methods and names in this class are self-explanatory.
+ */
 public class CurrencyData implements Serializable {
 
     String currencyID;

@@ -67,7 +67,7 @@ public class KnowCoinActivity extends AppCompatActivity {
         EditText et_PowerCost = (EditText) findViewById(R.id.et_powerRate);
 
         Button calculate = (Button) findViewById(R.id.calculate);
-
+        // Creating an onclickListener to the button.
         calculate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -89,6 +89,15 @@ public class KnowCoinActivity extends AppCompatActivity {
         });
     }
 
+    /**
+     * This  calculates the esimated break-even time with the current configuration and alerts the user.
+     *
+     * @param currencyData,         this is the map that contains the coin data.
+     * @param hashRate,             this is the hash rate in MH/s input by the user.
+     * @param hardwareCost,         this is the hardware cost in USD input by the user.
+     * @param hardwarePowerInWatts, this is the power wattage input by the user.
+     * @param powerCostInKWH,       this is the power cost in kilo watt hours input by the user.
+     */
     private void calculate(CurrencyData currencyData, double hashRate, double hardwareCost, double hardwarePowerInWatts, double powerCostInKWH) {
         double hashesPerDay = hashRate * 1_000_000 * 86400;
         double earningsPerDay = (hashesPerDay * (currencyData.getBlockReward() * currencyData.getExchangeRate())) / (Math.pow(2, 32) * currencyData.getDifficulty());

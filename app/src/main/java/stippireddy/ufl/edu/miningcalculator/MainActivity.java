@@ -46,6 +46,7 @@ public class MainActivity extends AppCompatActivity {
         b_Know_Coin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Intent that allows the map to be serialized and sent to the other screens
                 Intent knowCoin = new Intent(MainActivity.this, KnowCoinActivity.class);
                 knowCoin.putExtra("map", serverData);
                 startActivity(knowCoin);
@@ -55,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         b_Suggest_Coin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Intent that allows the map to be serialized and sent to the other screens
                 Intent findCoin = new Intent(MainActivity.this, FindCoinActivity.class);
                 findCoin.putExtra("map", serverData);
                 startActivity(findCoin);
@@ -78,19 +80,24 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected HashMap<String, CurrencyData> doInBackground(String... params) {
             HashMap<String, CurrencyData> map = new HashMap<>();
-            String[] inputs = new String[]{"162", "151", "178", "101", "15", "147", "4", "1", "193"};
-            String[] currencies = new String[]{"ETC", "ETH", "MUSIC", "XMR", "EMC2", "GAME", "LTC", "BTC", "BCH"};
-            for (int i=0; i<inputs.length; i++) {
-                String input = inputs[i];
-                URL whatToMineURL = NetworkUtils.buildUrl("https://whattomine.com/coins/"+input+".json");
-                URL cryptoCompareURL = NetworkUtils.buildUrl("https://min-api.cryptocompare.com/data/price?fsym="+currencies[i]+"&tsyms=USD");
+            // Setting the list of the coins that are supported.
+            // inputs contains the coin ids as per whattomine.com
+            String[] whattomineInput = new String[]{"162", "151", "178", "101", "15", "147", "4", "1", "193"};
+            // currencies contains the coin ids as per cyrptocompare.com
+            String[] cryptoCompareInput = new String[]{"ETC", "ETH", "MUSIC", "XMR", "EMC2", "GAME", "LTC", "BTC", "BCH"};
+            // Iterating through all the currencies to get the data about all coins at start-up
+            for (int i=0; i<whattomineInput.length; i++) {
+                String whatToMineCode = whattomineInput[i];
+                URL whatToMineURL = NetworkUtils.buildUrl("https://whattomine.com/coins/"+whatToMineCode+".json");
+                URL cryptoCompareURL = NetworkUtils.buildUrl("https://min-api.cryptocompare.com/data/price?fsym="+cryptoCompareInput[i]+"&tsyms=USD");
 
                 try {
+                    // Fetching the data from service call to whattomine url and setting the data into a map.
                     String jsonWeatherResponse = NetworkUtils
                             .getResponseFromHttpUrl(whatToMineURL);
                     JSONObject forecastJson = new JSONObject(jsonWeatherResponse);
                     CurrencyData data = new CurrencyData();
-                    data.setCurrencyID(input);
+                    data.setCurrencyID(whatToMineCode);
                     data.setCurrencyName((String) forecastJson.get("name"));
                     data.setDifficulty((double) forecastJson.get("difficulty"));
                     data.setExchangeRate((double) forecastJson.get("exchange_rate"));
@@ -103,11 +110,12 @@ public class MainActivity extends AppCompatActivity {
                     e.printStackTrace();
                     return null;
                 }
+                // Fetching the data from service call to cryptoCompare url and setting the data into a map.
                 try {
                     String priceJSON = NetworkUtils
                             .getResponseFromHttpUrl(cryptoCompareURL);
                     JSONObject forecastJson = new JSONObject(priceJSON);
-                    map.get(currencies[i]).setExchangeRate((double) forecastJson.get("USD"));
+                    map.get(cryptoCompareInput[i]).setExchangeRate((double) forecastJson.get("USD"));
                 } catch (Exception e) {
                     e.printStackTrace();
                     return null;
